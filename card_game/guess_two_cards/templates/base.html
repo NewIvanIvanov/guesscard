@@ -1,0 +1,57 @@
+{% load i18n %}
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Card Game
+      {% block meta_title %}{% endblock meta_title %}</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'guess_two_cards/css/style.css' %}"> 
+  {% block extra_css %}{% endblock extra_css %}
+</head>
+  <body>
+   
+{% block navigation %}
+  <ul class="nav  justify-content-end">
+  {% block nav-item %}
+  {% endblock nav-item %}
+
+  {% if user.is_authenticated %}
+      <li class="nav-item">
+        <span class="nav-link">Welcome: {{ user.get_username }}</span>
+      </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
+      </li>
+  {% else %}
+    <li class="nav-item">
+        <a class="nav-link" href="/accounts/register">Registration</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/accounts/login">Login</a>
+      </li>
+  {% endif %}
+  </ul>
+{% endblock navigation %}
+
+  <div class="bg--green">
+    <section class="container">
+      <div class="row  justify-content-center">
+        {% block content %}
+        {% endblock content %}
+      </div>
+    </section>
+  </div>
+
+
+  <!--scripts-->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  {% block extra_js %}{% endblock extra_js %}
+  </body>
+</html>

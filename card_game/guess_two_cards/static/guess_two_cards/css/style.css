@@ -1,0 +1,73 @@
+.bg--green {
+	min-height: 100vh;
+	background-color: #269900;
+}
+
+.cards_box {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+
+	-webkit-flex-wrap: wrap;
+	-moz-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	-o-flex-wrap: wrap;
+	flex-wrap: wrap;
+
+	justify-content: space-around;
+}
+
+.card_image {
+	display: flex;
+	
+	width: 135px;
+	height: 188px;
+
+	margin: 15px;
+	background-color: #269900;
+	-webkit-background-size: contain;
+	background-size: contain;
+	
+	visibility: visible;
+	opacity: 1;
+
+	transition: opacity .3s, visibility  0.3s;
+}
+
+.card {
+	display: flex;
+	
+	width: 135px;
+	height: 188px;
+
+	background-image: url(../img/back_of_a_card.png);
+	background-color: #269900;
+	-webkit-background-size: contain;
+	background-size: contain;
+
+	border: none;
+	border-radius: none;
+
+	visibility: visible;
+	opacity: 1;
+
+	transition: opacity .3s, visibility  0.3s;
+}
+
+.btn--mr_top {
+	margin-top: 30px;
+}
+
+.form--top_margin {
+	margin-top: 30px;
+}
+
+.help-block {
+	max-width: 300px;
+}
+
+.form-group {
+	max-width: 300px;
+}

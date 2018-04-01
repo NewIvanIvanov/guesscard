@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block meta_title %}- Guess Two cards{% endblock meta_title %}
+
+{% block nav-item %}
+	  <li class="nav-item">
+	  	<a class="nav-link" href="{% url 'menu' %}">Main page</a>
+	  </li>
+	  <li class="nav-item">
+	  	<span id="moves_counter" class="nav-link">Your's turn: 0</span>
+	  </li>
+{% endblock nav-item %}
+
+
+{% block content %}
+<!-- Modal -->
+<div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+{% csrf_token %}
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Congratulations, You won!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-text">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a type="button" class="btn btn-primary" href="{% url 'menu' %}">Main Menu</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+	<div id="cards_box" class="cards_box col-sm-12"></div>
+{% endblock content %}
+
+{% block extra_js %}
+	<script type="text/javascript">
+		var cardsNumberFromUser = {{ cards_number }}
+	</script>
+	<script type="text/javascript" src="{% static 'guess_two_cards/js/cards.js' %}"></script>
+{% endblock extra_js %}

@@ -1,0 +1,48 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+
+{% block meta_title %} - Registration{% endblock meta_title %}
+
+{% block nav-item %}
+	  <li class="nav-item">
+	  	<a class="nav-link" href="{% url 'menu' %}">Main page</a>
+	  </li>
+{% endblock nav-item %}
+
+{% block content %}
+<form method="post" action="." class="form--top_margin">
+  {% csrf_token %}
+	<div class="form-group">
+	    <label for="id_username" class="col-sm-3 control-label" maxlength="150" required="" autofocus="">Username</label>
+	    <input type="text" class="form-control" id="id_username" value="{{ request.POST.username }}"
+	           name="username" />
+	    <span class="help-block">{{ form.errors.username.as_text }}</span>
+	</div>
+
+	<div class="form-group">
+	    <label for="id_email" class="col-sm-3 control-label" >Email</label>
+	    <input type="email" class="form-control" id="id_email" value="{{ request.POST.email }}"
+	           name="email" maxlength="150" required=""/>
+	    <span class="help-block">{{ form.errors.email.as_text }}</span>
+	</div>
+
+	<div class="form-group">
+	    <label for="id_password1" class="col-sm-3 control-label">Password</label>
+	    <input type="password" class="form-control" id="id_password1" value="{{ request.POST.password1 }}"
+	           name="password1" required=""/>
+	    <span class="help-block">{{ form.errors.password1.as_text }}</span>
+	</div>
+
+	<div class="form-group">
+	    <label for="id_password2" class="col-sm-3 control-label">Password confirmation</label>
+	    <input type="password" class="form-control" id="id_password2" value="{{ request.POST.password2 }}"
+	           name="password2" required=""/>
+	    <span class="help-block">{{ form.errors.password2.as_text }}</span>
+	</div>
+
+  <input type="submit" value="{% trans 'Submit' %}" class="btn btn-info"/>
+
+	<p class="help-block">{{ form.non_field_errors.as_text }}</p>
+
+</form>
+{% endblock %}

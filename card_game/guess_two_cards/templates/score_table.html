@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block meta_title %}- Score Table{% endblock meta_title %}
+
+{% block nav-item %}
+	  <li class="nav-item">
+	  	<a class="nav-link" href="{% url 'menu' %}">Main page</a>
+	  </li>
+{% endblock nav-item %}
+
+
+{% block content %}
+
+{% for record in data %}
+    {{record.username}}, {{record.high_score}}, {{record.guess_desk_number}}, {{record.score_date}}, 
+{% endfor %}
+
+{% endblock content %}

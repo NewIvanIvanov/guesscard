@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from datetime import datetime
 
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
 from models.users import *
@@ -22,18 +22,14 @@ def get_score(request):
     high_score = request.POST.get('score')
     end_of_round = datetime.now()
 
-    score = HighScore(username=winner_id, score=high_score, score_date=end_of_round, guess_desk_number=desk_size);
+    score = HighScore(username=winner_id, score=high_score,
+                      score_date=end_of_round, guess_desk_number=desk_size)
     score.save()
 
-    # comments_list = Comments()
-    # comments_query = comments_list.get_comments(
-    #     issue_id, list_of_comments_statuses)
-
-    # data = json.dumps(comments_query)
-    # return JsonResponse(data, safe=False)
     return JsonResponse({}, safe=False)
 
+
 def score_table(request):
-	data = dict(HighScore.objects.values())
-	print data
-	return render(request, 'score_table.html', data)
+    score = HighScore()
+    data = score.get_score_data()
+    return render(request, 'score_table.html', {'data': data})

@@ -5,11 +5,12 @@
 {% block meta_title %}- Main Page{% endblock meta_title %}
 
 {% block content %}
-	<div class="col-sm-4">
+	<div class="col-sm-6">
 		<ul class="list-unstyled">
 			<li><a href="{% url 'guess_game' 12%}" class="btn btn-info  btn-lg  btn-block  btn--mr_top">Small Deck (12 cards)</a></li>
 			<li><a href="{% url 'guess_game' 18%}" class="btn btn-info  btn-lg  btn-block btn--mr_top">Medium Deck (18 cards)</a></li>
 			<li><a href="{% url 'guess_game' 24%}" class="btn btn-info  btn-lg  btn-block btn--mr_top">Large Deck (24 cards)</a></li>
+			<li><a href="{% url 'score_table' %}" class="btn btn-info  btn-lg  btn-block btn--mr_top">Score Table</a></li
 		</ul>
 	</div>
 {% endblock content %}

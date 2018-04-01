@@ -10,11 +10,79 @@
 	  </li>
 {% endblock nav-item %}
 
-
 {% block content %}
 
-{% for record in data %}
-    {{record.username}}, {{record.high_score}}, {{record.guess_desk_number}}, {{record.score_date}}, 
+<div class="row  block--mr_top">
+{% for key, value in data.items %}
+
+  {% if key == 'twelve' %}
+    <div class="col-sm-12  col-md-4">
+      <h3 class="text-center">12 Cards Desk</h3>
+      <table class="table  table-striped  table--bg_white">
+        <tr>
+          <th>Place</th>
+          <th>Desk</th>
+          <th>User</th>
+          <th>Score</th>
+        </tr>
+      {% for item in value %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ item.guess_desk_number }}</td>
+          <td>{{ item.username }}</td>
+          <td>{{ item.score }}</td>
+        </tr>
+      {% endfor %}
+      </table>
+    </div>
+  {% endif %}
+
+  {% if key == 'eighteen' %}
+    <div class="col-sm-12  col-md-4">
+      <h3 class="text-center">18 Cards Desk</h3>
+      <table class="table  table-striped  table--bg_white">
+        <tr>
+          <th>Place</th>
+          <th>Desk</th>
+          <th>User</th>
+          <th>Score</th>
+        </tr>
+      {% for item in value %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ item.guess_desk_number }}</td>
+          <td>{{ item.username }}</td>
+          <td>{{ item.score }}</td>
+        </tr>
+      {% endfor %}
+      </table>
+    </div>
+  {% endif %}
+
+  {% if key == 'twenty_four' %}
+    <div class="col-sm-12  col-md-4">
+      <h3 class="text-center">24 Cards Desk</h3>
+      <table class="table  table-striped  table--bg_white">
+        <tr>
+          <th>Place</th>
+          <th>Desk</th>
+          <th>User</th>
+          <th>Score</th>
+        </tr>
+      {% for item in value %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ item.guess_desk_number }}</td>
+          <td>{{ item.username }}</td>
+          <td>{{ item.score }}</td>
+        </tr>
+      {% endfor %}
+      </table>
+    </div>
+  {% endif %}
+
 {% endfor %}
+</div>
 
 {% endblock content %}
+

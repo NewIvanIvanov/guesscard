@@ -21,12 +21,15 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Congratulations, You won!</h5>
+        <h5 class="modal-title" id="ModalLongTitle">Congratulations, You won!</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" id="modal-text">
+        {% if user.is_anonymous %}
+          You must be logged in, to enter score table. 
+        {% endif %}
       </div>
       <div class="modal-footer">
         <a type="button" class="btn btn-secondary" href="{% url 'score_table' %}">Score Table</a>

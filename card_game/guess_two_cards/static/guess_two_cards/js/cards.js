@@ -4,7 +4,7 @@ values = {
 	cardsBox: "#cards_box",
 	cardsNumber: 12,
 	csrfSelector: "#ModalCenter input[name=csrfmiddlewaretoken]",
-	url: "/getscore/",
+	url: "/postscore/",
 };
 
 values.cardsNumber = cardsNumberFromUser;
@@ -136,7 +136,7 @@ function DeckOfCards(cardsNumber, cardsBox) {
 	DeckOfCards.prototype.checkForWin = function() {
 		if (self.cardsLeft === 0) {
 			$('#ModalCenter').modal('show');
-			$('#modal-text').text('Your score is ' + self.movesCounter + ' turns.');
+			$('#modal-text').text('Your score is ' + self.movesCounter + ' turns. ' + $('#modal-text').text());
 			var dataTransfer = new DataTransfer(values.url, values.csrfSelector, self.movesCounter, self.cardsNumber);
 			dataTransfer.run();
 		}
@@ -164,16 +164,32 @@ function DataTransfer(dataUrl, csrfSelector, score, cardsNumber) {
 	    xml.onload = function() {
 	      if (xml.status === 200) {
 	        var response = JSON.parse(xml.responseText); 
-	        console.log(response);
+	        if(response.winner) {
+	        	self.congratulation(response.winner);
+	        }
 	      }
 	    };
 
 	    xml.onerror = function() {
-	    	console.log("Send data error.");
+	    	self.congratulation(response.winner, true);
 	    };
 
     xml.send(data);
 	};
+
+	DataTransfer.prototype.congratulation = function(winner, error) {
+		var congratulationText = 'Congratulations, You won! ';
+		var winnerText = '';
+		if (winner) {
+			winnerText = 'Check the score table';
+		}
+		if (error) {
+			winnerText = "Send data error. Try again later";
+		}
+		$('#ModalLongTitle').text(congratulationText + winnerText);
+	};
+
+
 
 	DataTransfer.prototype.run = function() {
 		var data = self.prepareData();

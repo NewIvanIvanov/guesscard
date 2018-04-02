@@ -10,7 +10,7 @@
   <title>Card Game
       {% block meta_title %}{% endblock meta_title %}</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="{% static 'guess_two_cards/css/style.css' %}"> 
+  <link rel="stylesheet" type="text/css" href="{% static '/guess_two_cards/css/style.css' %}"> 
   {% block extra_css %}{% endblock extra_css %}
 </head>
   <body>
@@ -43,6 +43,19 @@
 
   <div class="bg--green">
     <section class="container">
+      <div class="row justify-content-center">
+        <div class="col-sm-6">
+            {% for message in messages %}
+              <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+            {{ message }}
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+
       <div class="row  justify-content-center">
         {% block content %}
         {% endblock content %}

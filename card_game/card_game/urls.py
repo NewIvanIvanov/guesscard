@@ -17,14 +17,15 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.views import logout
 
-from guess_two_cards.views import get_score, guess_game, menu_page, score_table
+from guess_two_cards.views import guess_game, menu_page, post_score, score_table
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^guessgame/(?P<cards_number>[0-9]+)/$', guess_game, name='guess_game'),
+    url(r'^guessgame/(?P<cards_number>[0-9]+)/$',
+        guess_game, name='guess_game'),
     url(r'^$', menu_page, name='menu'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^logout/$', logout, {'next_page': '/'}, name='logout'),
-    url(r'^getscore/$', get_score, name='get_score'),
+    url(r'^postscore/$', post_score, name='get_score'),
     url(r'^scoretable/$', score_table, name='score_table'),
 ]

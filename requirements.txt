@@ -1,0 +1,4 @@
+Django==1.11.11
+django-registration==2.4.1
+psycopg2==2.7.4
+

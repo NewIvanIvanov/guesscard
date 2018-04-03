@@ -11,12 +11,17 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import sys
 
+import dj_database_url
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Add visibility for base directory to django
+sys.path.insert(1, os.path.dirname(BASE_DIR))
+sys.path.insert(1, os.path.join(BASE_DIR, 'guess_two_cards'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -34,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.postgres',
     'registration',
     'guess_two_cards',
 ]
@@ -46,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'card_game.urls'
@@ -129,3 +136,40 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
+if 'SECRET_KEY' in os.environ:
+    SECRET_KEY = os.environ['SECRET_KEY']
+
+if 'DEPLOY' in os.environ and os.environ['DEPLOY'] == 'HEROKU':
+
+    DEBUG = False
+
+    ALLOWED_HOSTS = [".herokuapp.com"]
+
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'))
+
+    MEDIA_URL = '/media/app/client/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+    DATABASES = {'default': {}}
+    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
+
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['console'],
+                'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+            },
+        },
+    }

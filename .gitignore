@@ -115,4 +115,5 @@ django
 #configs
 /card_game/card_game/local_settings.py
 
-
+#static
+/card_game/static
